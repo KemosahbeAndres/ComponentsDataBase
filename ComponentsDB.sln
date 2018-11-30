@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentsViewer", "ComponentsDB\ComponentsViewer.csproj", "{119C2C3A-B1B8-4F95-B115-D79BC413B586}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentsDBService", "ComponentsDataBase\ComponentsDBService.csproj", "{53C879A5-BF19-4B36-911B-0AB46735EB7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentsDataBaseService", "ComponentsDataBase\ComponentsDataBaseService.csproj", "{53C879A5-BF19-4B36-911B-0AB46735EB7C}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ComponentsDBSInstaller", "ComponentsDBSInstaller\ComponentsDBSInstaller.vdproj", "{35691F6A-299D-425A-9C36-F97851886062}"
 EndProject

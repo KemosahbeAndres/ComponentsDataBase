@@ -1,39 +1,69 @@
-﻿
-using System;
+﻿using System;
+using System.Net;
 using System.Threading;
 
-namespace ComponentsDBService
+namespace ComponentsDataBaseService
 {
     class DBApplication
     {
-        //Propiedades
+//####### Propiedades #######
         //Private
         private Thread Thread;
-        private ThreadExceptionEventHandler a;
-        private HTTPServer Server;
-        private bool isAlive;
+        private ThreadStart threadStart;
+        private ThreadExceptionEventHandler ThreadExceptionEventHnd;
+        private HttpServer Server;
+        private bool managerBussy;
+        private FileManagement fileManagement;
 
-        //Metodos
+        //Public
+        public bool Running { get; private set; }
+
+        //####### Metodos #######
         //Private
 
         //Public
         public DBApplication()
         {
-            this.Server = new HTTPServer();
-            this.isAlive = false;
+            this.Server = new HttpServer("http://localhost:12701/");
+            this.Server.OnRequest += onServerRequest;
+            this.Running = false;
+            this.managerBussy = false;
+            this.fileManagement = new FileManagement();
+        }
+
+        private string onServerRequest(HttpListenerRequest request)
+        {
+            string message = "";
+            foreach(string s in request.Headers)
+            {
+                message += s;
+            }
+            return message;
         }
 
         public void Run()
         {
-            this.isAlive = true;
-            while(this.isAlive)
+            ThreadPool.QueueUserWorkItem((arg)=> 
             {
-                string request = this.Server.Recieve();
-            }
+                try
+                {
+
+                }
+                catch { }
+                finally
+                {
+                    this.Server.Stop();
+                }
+                while (this.Running)
+                {
+                    this.Server.Start();
+                }
+            });
         }
         public void Shutdown()
         {
-            this.Server.Stop();
+            this.Running = false;
+            if(this.Server.Running) this.Server.Stop();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ServiceProcess;
 
-namespace ComponentsDBService
+namespace ComponentsDataBaseService
 {
     public partial class ServiceCDB : ServiceBase
     {
@@ -24,16 +24,13 @@ namespace ComponentsDBService
             {
                 mApplication.Run();
             }
-            catch
-            {
-                
-            }
+            catch { }
             
         }
 
         protected override void OnStop()
         {
-
+            mApplication.Shutdown();
         }
     }
 }

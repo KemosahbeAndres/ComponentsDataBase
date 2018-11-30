@@ -1,4 +1,4 @@
-﻿namespace ComponentsDBService
+﻿namespace ComponentsDataBaseService
 {
     partial class ServiceCDB
     {

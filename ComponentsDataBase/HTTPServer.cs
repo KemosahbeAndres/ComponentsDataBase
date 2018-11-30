@@ -1,83 +1,71 @@
-﻿using System.Net;
-using System.Net.Sockets;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Text;
+using System.Threading;
 
-namespace ComponentsDBService
+namespace ComponentsDataBaseService
 {
-    class HTTPServer
+    class HttpServer
     {
-        //Constructores
-        public HTTPServer(int port = 12701)
-        {
-            this.sAddress = IPAddress.Any;
-            this.sPort = port;
-            this.sListener = new TcpListener(this.sAddress, this.sPort);
-        }
-        public HTTPServer(IPAddress address, int port = 12701)
-        {
-            this.sAddress = address;
-            this.sPort = port;
-            this.sListener = new TcpListener(this.sAddress, this.sPort);
-        }
-        public HTTPServer(string address, int port = 12701)
-        {
-            this.sAddress = IPAddress.Parse(address);
-            this.sPort = port;
-            this.sListener = new TcpListener(this.sAddress, this.sPort);
-        }
-
-        //Private
-        private int sPort;
-        private IPAddress sAddress;
-        private TcpListener sListener;
-        private TcpClient sClient;
-
-        //Metodos
-
-        
+        private HttpListener server;
+        private HttpListenerContext context;
+        private Func<HttpListenerContext> responseMethod;
 
         //Public
-        public NetworkStream clientStream = null;
-        public StreamReader streamInput = null;
-        public StreamWriter streamOutput = null;
+        public delegate string RequestMethod(HttpListenerRequest request);
+        public event RequestMethod OnRequest;
+        public bool Running { get; private set; }
 
-        //Metodos
-        public string Recieve()
+        public HttpServer(params string[] uri)
         {
-            try
+            if (!HttpListener.IsSupported)
             {
-                if (this.sClient.Connected)
-                {
-                    this.sClient.Close();
-                    this.streamInput.Close();
-                    this.streamOutput.Close();
-                }
-                this.sListener.Start();
-                this.sClient = this.sListener.AcceptTcpClient();
-                clientStream = this.sClient.GetStream();
-                if (clientStream.DataAvailable)
-                {
-                    this.streamInput = new StreamReader(clientStream);
-                    this.streamOutput = new StreamWriter(clientStream);
-                }
-                return streamInput.ReadToEnd();
+                throw new NotSupportedException("Necesario Windows XP SP2, Server 2003 o mayor.");
             }
-            catch
+            foreach(var p in uri)
             {
-                //Console.WriteLine(e.Message);
+                this.server.Prefixes.Add(p);
             }
-            return null;
+            this.server.Start();
         }
-        public void Send(string message)
+
+        public void Start()
         {
-            if (this.streamOutput != null || this.sClient.Connected) {
-                this.streamOutput.Write(message);
-            }
-            else { throw new System.Exception(); }
+            ThreadPool.QueueUserWorkItem((arg) =>
+            {
+                try
+                {
+                    while (this.server.IsListening)
+                    {
+                        ThreadPool.QueueUserWorkItem((c)=> 
+                        {
+                            context = c as HttpListenerContext;
+                            try
+                            {
+                                if (context == null) return;
+                                var response = this.OnRequest?.Invoke(context.Request);
+                                var buffer = Encoding.UTF8.GetBytes(response);
+                                context.Response.ContentLength64 = buffer.Length;
+                                context.Response.OutputStream.Write(buffer, 0, buffer.Length);
+                            }
+                            catch { }
+                            finally
+                            {
+                                if (context != null) context.Response.OutputStream.Close();
+                            }
+                        }, this.server.GetContext());
+                    }
+                }
+                catch { }
+            });
         }
         public void Stop()
-        {
-
+        { 
+            this.server.Stop();
+            this.Running = false;
+            this.server.Close();
         }
+
     }
 }
