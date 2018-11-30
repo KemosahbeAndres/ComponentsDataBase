@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentsViewer", "ComponentsDB\ComponentsViewer.csproj", "{119C2C3A-B1B8-4F95-B115-D79BC413B586}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentsDBService", "ComponentsDataBase\ComponentsDBService.csproj", "{53C879A5-BF19-4B36-911B-0AB46735EB7C}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ComponentsDBSInstaller", "ComponentsDBSInstaller\ComponentsDBSInstaller.vdproj", "{35691F6A-299D-425A-9C36-F97851886062}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{119C2C3A-B1B8-4F95-B115-D79BC413B586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119C2C3A-B1B8-4F95-B115-D79BC413B586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119C2C3A-B1B8-4F95-B115-D79BC413B586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119C2C3A-B1B8-4F95-B115-D79BC413B586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C879A5-BF19-4B36-911B-0AB46735EB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C879A5-BF19-4B36-911B-0AB46735EB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C879A5-BF19-4B36-911B-0AB46735EB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C879A5-BF19-4B36-911B-0AB46735EB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35691F6A-299D-425A-9C36-F97851886062}.Debug|Any CPU.ActiveCfg = Debug
+		{35691F6A-299D-425A-9C36-F97851886062}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6C30BB91-95FC-45FD-8BEB-49695CEF1C68}
+	EndGlobalSection
+EndGlobal
