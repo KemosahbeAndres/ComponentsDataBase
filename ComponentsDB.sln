@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentsDataBaseService",
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ComponentsDBSInstaller", "ComponentsDBSInstaller\ComponentsDBSInstaller.vdproj", "{35691F6A-299D-425A-9C36-F97851886062}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDB", "CDB\CDB.csproj", "{31402934-9943-4751-BB6A-82A6ECC1F292}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{53C879A5-BF19-4B36-911B-0AB46735EB7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35691F6A-299D-425A-9C36-F97851886062}.Debug|Any CPU.ActiveCfg = Debug
 		{35691F6A-299D-425A-9C36-F97851886062}.Release|Any CPU.ActiveCfg = Release
+		{31402934-9943-4751-BB6A-82A6ECC1F292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31402934-9943-4751-BB6A-82A6ECC1F292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31402934-9943-4751-BB6A-82A6ECC1F292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31402934-9943-4751-BB6A-82A6ECC1F292}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

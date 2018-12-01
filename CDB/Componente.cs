@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace ComponentsViewer
+namespace CDB
 {
-    class Componente
+    public class Componente
     {
         public string ID { get; set; }
         public string codigo { get; set; }

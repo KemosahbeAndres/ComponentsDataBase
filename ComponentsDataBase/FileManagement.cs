@@ -1,4 +1,4 @@
-﻿
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 
@@ -8,7 +8,12 @@ namespace ComponentsDataBaseService
     {
         //##### Propiedades #####
         //Private
-        private FileStream file;
+        private const string dataPath = @".\data\";
+        private const string dbPath = @".\data\db\";
+        //private const string configPath = @".\data\config\";
+        private const string dbiFile = @"dbi.json";
+        private Dictionary<string, string> dbIndex;
+        private string dbDocument { get; set; }
 
         //Public
         public delegate void StatusProccess(int status);
@@ -22,26 +27,45 @@ namespace ComponentsDataBaseService
         public FileManagement()
         {
             Ocupado = false;
+            if (!File.Exists(dbPath + dbiFile))
+            {
+                File.Create(dataPath + dbiFile);
+                dbIndex = new Dictionary<string, string>();
+            }
+            else
+            {
+                dbIndex = JsonConvert.DeserializeObject<Dictionary<string, string>>(
+                    File.ReadAllText(dbPath + dbiFile));
+            }
         }
 
         //Private
-        public void addComponent(List<string> document)
+        public void addComponent(string document)
+        {
+            Ocupado = true;
+            dbDocument = document;
+            
+            Ocupado = false;
+        }
+        public void deleteComponent()
         {
             Ocupado = true;
             // Aqui va el codigo.
             Ocupado = false;
         }
-        public void deleteComponent()
-        {
-
-        }
         public bool updateComponent()
         {
+            Ocupado = true;
+            // Aqui va el codigo.
+            Ocupado = false;
             return true;
         }
-        public Dictionary<string,string> search()
+        public string searchAll()
         {
-            return new Dictionary<string, string>();
+            Ocupado = true;
+            // Aqui va el codigo.
+            Ocupado = false;
+            return string.Empty;
         }
     }
 }

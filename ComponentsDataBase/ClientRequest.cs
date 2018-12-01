@@ -1,4 +1,4 @@
-﻿
+﻿using CDB;
 namespace ComponentsDataBaseService
 {
     public enum RequestType
@@ -10,6 +10,7 @@ namespace ComponentsDataBaseService
     {
         public RequestType Type { get; private set; }
         public string Message { get; private set; }
+        public Componente Component { get; set; }
         public void setType(RequestType type)
         {
             this.Type = type;
