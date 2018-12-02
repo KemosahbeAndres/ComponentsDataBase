@@ -3,7 +3,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 
-namespace ComponentsDataBaseService
+namespace ServiceTest
 {
     class HttpServer
     {
@@ -17,8 +17,10 @@ namespace ComponentsDataBaseService
 
         public HttpServer(params string[] uri)
         {
+            isAlive = false;
             if (!HttpListener.IsSupported)
             {
+                Console.WriteLine("OBJETO HTTPLISTENER NO SOPORTADO.");
                 throw new NotSupportedException("Necesario Windows XP SP2, Server 2003 o mayor.");
             }
             this.server = new HttpListener();
@@ -27,41 +29,57 @@ namespace ComponentsDataBaseService
                 this.server.Prefixes.Add(p);
             }
             this.server.Start();
+            Console.WriteLine("[SERVER] Start");
         }
 
-        public void Start()
+
+        private void CallBack(Object listener)
         {
             try
             {
                 while (this.server.IsListening || isAlive)
                 {
-                    ThreadPool.QueueUserWorkItem((c)=> 
-                    {
-                        var context = c as HttpListenerContext;
+                    Console.WriteLine("[SERVER] Escuchando...");
+                    //ThreadPool.QueueUserWorkItem((c) =>
+                    //{
+                    var serv = listener as HttpListener;
+                    var context = serv.GetContext();
                         try
                         {
                             if (context == null) return;
+                            Console.WriteLine("[SERVER] Peticion recibida.");
                             var response = this.OnRequest?.Invoke(context.Request);
                             var buffer = Encoding.UTF8.GetBytes(response);
                             context.Response.ContentLength64 = buffer.Length;
                             context.Response.Headers.Add("Content-Type", "application/json");
                             context.Response.OutputStream.Write(buffer, 0, buffer.Length);
+                            Console.WriteLine("[SERVER] Respuesta enviada.");
+                            Console.WriteLine("[SERVER][RESPUESTA] " + response);
                         }
                         catch { }
                         finally
                         {
                             if (context != null) context.Response.OutputStream.Close();
                         }
-                    }, this.server.GetContext());
+                    //}, this.server.GetContext());
                 }
             }
             catch { }
         }
+
+        public void Start()
+        {
+            isAlive = true;
+            ThreadPool.QueueUserWorkItem(new WaitCallback(CallBack), server);
+            //CallBack();
+        }
+
         public void Stop()
         { 
             this.server.Stop();
             isAlive = false;
             this.server.Close();
+            Console.WriteLine("[SERVER] Apagando Servidor.");
         }
 
     }

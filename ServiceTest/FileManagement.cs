@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace ComponentsDataBaseService
+namespace ServiceTest
 {
     class FileManagement
     {
@@ -29,6 +29,11 @@ namespace ComponentsDataBaseService
             Ocupado = false;
             if (!File.Exists(dbPath + dbiFile))
             {
+                if (!Directory.Exists(dataPath) || !Directory.Exists(dbPath))
+                {
+                    Directory.CreateDirectory(dataPath);
+                    Directory.CreateDirectory(dbPath);
+                }
                 File.Create(dataPath + dbiFile);
                 Index = new Dictionary<string, string>();
             }

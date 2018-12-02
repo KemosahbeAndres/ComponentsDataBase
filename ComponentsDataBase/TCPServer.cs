@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.IO;
+using CDB;
 
 namespace ComponentsDataBaseService
 {
@@ -30,7 +31,7 @@ namespace ComponentsDataBaseService
         }
 
         //Private
-        private bool sStatus;
+        //private bool sStatus;
         private int sPort;
         private IPAddress sAddress;
         private TcpListener sListener;
@@ -46,7 +47,7 @@ namespace ComponentsDataBaseService
         public StreamWriter streamOutput = null;
 
         //Metodos
-        public ClientRequest Recieve()
+        public ServerQuery Recieve()
         {
             try
             {
@@ -64,17 +65,17 @@ namespace ComponentsDataBaseService
                     this.streamInput = new StreamReader(clientStream);
                     this.streamOutput = new StreamWriter(clientStream);
                 }
-                
-                ClientRequest request = new ClientRequest();
+
+                ServerQuery request = new ServerQuery();
                 request.setType(RequestType.Search);
-                request.setMessage(this.streamInput.ReadToEnd());
+                request.addQuery(this.streamInput.ReadToEnd());
                 return request;
             }
             catch
             {
                 //Console.WriteLine(e.Message);
             }
-            return ClientRequest.Empty;
+            return ServerQuery.Empty;
         }
         public void Send(string message)
         {

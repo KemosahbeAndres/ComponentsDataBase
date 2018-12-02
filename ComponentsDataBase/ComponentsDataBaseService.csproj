@@ -63,11 +63,9 @@
     <Compile Include="AlertForm.Designer.cs">
       <DependentUpon>AlertForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ClientRequest.cs" />
     <Compile Include="DBApplication.cs" />
     <Compile Include="FileManagement.cs" />
     <Compile Include="HttpServer.cs" />
-    <Compile Include="TCPServer.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
