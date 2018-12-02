@@ -2,13 +2,13 @@
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ServiceTest
 {
     class HttpServer
     {
         private HttpListener server;
-        private HttpListenerContext context;
 
         //Public
         public delegate string RequestMethod(HttpListenerRequest request);
@@ -70,7 +70,8 @@ namespace ServiceTest
         public void Start()
         {
             isAlive = true;
-            ThreadPool.QueueUserWorkItem(new WaitCallback(CallBack), server);
+            Task mTask = new Task(new Action<Object>(CallBack), server);
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(CallBack), server);
             //CallBack();
         }
 

@@ -11,7 +11,7 @@ namespace ComponentsDataBaseService
         //Private
         private readonly HttpServer Server;
         private readonly FileManagement fileManagement;
-        private ServerQuery serverQuery;
+        private DataBaseRequest serverQuery;
 
         //Public
         public static bool Running { get; private set; }
@@ -39,7 +39,7 @@ namespace ComponentsDataBaseService
             System.IO.StreamReader reader = new System.IO.StreamReader(body, encoding);
             try
             {
-                serverQuery = JsonConvert.DeserializeObject<ServerQuery>(reader.ReadToEnd());
+                serverQuery = JsonConvert.DeserializeObject<DataBaseRequest>(reader.ReadToEnd());
             }catch(JsonSerializationException e)
             {
                 return "<h1>ERROR</h1><p>"+e.Message+"</p>";
@@ -49,7 +49,7 @@ namespace ComponentsDataBaseService
                 return "<h1>ERROR</h1><p>La peticion esta vacia. Por favor envie una peticion con algo de informacion.</p>";
             }
 
-            return string.Empty;
+            return "<h1>Hola Mundo.</h1>";
         }
 
         public void Run()

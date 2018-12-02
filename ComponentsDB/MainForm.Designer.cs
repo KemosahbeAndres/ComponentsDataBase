@@ -45,6 +45,7 @@
             this.toolBar = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.sMainContainer)).BeginInit();
             this.sMainContainer.Panel1.SuspendLayout();
             this.sMainContainer.Panel2.SuspendLayout();
@@ -96,6 +97,7 @@
             // 
             // sContainer.Panel2
             // 
+            this.sContainer.Panel2.Controls.Add(this.button1);
             this.sContainer.Panel2.Controls.Add(this.imgPanel);
             this.sContainer.Panel2.Controls.Add(this.label3);
             this.sContainer.Panel2.Controls.Add(this.label2);
@@ -107,10 +109,14 @@
             // dataGrid
             // 
             this.dataGrid.AllowUserToOrderColumns = true;
+            this.dataGrid.BackgroundColor = System.Drawing.Color.White;
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGrid.Location = new System.Drawing.Point(0, 0);
+            this.dataGrid.MultiSelect = false;
             this.dataGrid.Name = "dataGrid";
+            this.dataGrid.RowHeadersVisible = false;
+            this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGrid.Size = new System.Drawing.Size(385, 358);
             this.dataGrid.TabIndex = 0;
             // 
@@ -217,6 +223,16 @@
             this.panel1.Size = new System.Drawing.Size(742, 358);
             this.panel1.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(22, 277);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,7 +246,6 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Components";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.sMainContainer.Panel1.ResumeLayout(false);
             this.sMainContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.sMainContainer)).EndInit();
@@ -270,6 +285,7 @@
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel imgPanel;
+        private System.Windows.Forms.Button button1;
     }
 }
 

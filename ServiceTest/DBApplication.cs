@@ -13,7 +13,7 @@ namespace ServiceTest
         //Private
         private readonly HttpServer Server;
         private readonly FileManagement fileManagement;
-        private ServerQuery serverQuery;
+        private DataBaseRequest serverQuery;
 
         //Public
         public static bool Running { get; private set; }
@@ -47,7 +47,7 @@ namespace ServiceTest
             Console.WriteLine("##########################");
             try
             {
-                serverQuery = JsonConvert.DeserializeObject<ServerQuery>(reader.ReadToEnd());
+                serverQuery = JsonConvert.DeserializeObject<DataBaseRequest>(reader.ReadToEnd());
             }catch(JsonSerializationException e)
             {
                 Console.WriteLine("#####################");
@@ -66,7 +66,7 @@ namespace ServiceTest
             Console.WriteLine("##########################");
             Console.WriteLine("[APP] Enviando Respuesta. OK");
             Console.WriteLine("##########################");
-            return string.Empty;
+            return "<h1>Hola Mundo.</h1>";
         }
         private void AppProcess()
         {
@@ -96,7 +96,7 @@ namespace ServiceTest
                 catch (Exception e)
                 {
                     Console.WriteLine("##########################");
-                    Console.WriteLine("[APP][ERROR][0] Problema al detener el servidor.");
+                    Console.WriteLine("[APP][ERROR][0] Problema al detener el servidor. ### "+e.Message);
                     Console.WriteLine("##########################");
                 }
             }

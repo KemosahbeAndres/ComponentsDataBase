@@ -7,7 +7,7 @@ namespace CDB
         Add,Delete,Update,Search,Empty
     }
     
-    public class ServerQuery
+    public class DataBaseRequest
     {
         public RequestType Type { get; private set; }
         public List<string> Querys { get; private set; }
@@ -32,11 +32,11 @@ namespace CDB
         {
             this.Components.AddRange(collection);
         }
-        public static ServerQuery Empty
+        public static DataBaseRequest Empty
         {
             get
             {
-                ServerQuery req = new ServerQuery();
+                DataBaseRequest req = new DataBaseRequest();
                 req.Type = RequestType.Empty;
                 return req;
             }
