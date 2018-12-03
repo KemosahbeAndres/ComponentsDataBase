@@ -1,5 +1,6 @@
 ﻿using CDB;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 
@@ -35,7 +36,11 @@ namespace ComponentsViewer
                 //OJO!!! async permite la ejecucion asyncrona del hilo.
                 var cRequest = args as DataBaseRequest;
                 var content = new StringContent(
-                    JsonConvert.SerializeObject(cRequest), 
+                    JsonConvert.SerializeObject(
+                        cRequest, 
+                        Formatting.Indented, 
+                        new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                        ContractResolver = new ConverterContractResolver()}), 
                     System.Text.Encoding.UTF8, 
                     "application/json");
                 var cResponse = await cliente.PostAsync("http://localhost:12701/", content);

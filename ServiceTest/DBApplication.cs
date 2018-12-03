@@ -7,6 +7,7 @@ using System.Threading;
 
 namespace ServiceTest
 {
+    
     class DBApplication
     {
 //####### Propiedades #######
@@ -47,7 +48,15 @@ namespace ServiceTest
             Console.WriteLine("##########################");
             try
             {
-                serverQuery = JsonConvert.DeserializeObject<DataBaseRequest>(reader.ReadToEnd());
+                //var query = 
+                //serverQuery = new DataBaseRequest();
+                DataBaseRequest serverQuery =  JsonConvert.DeserializeObject<DataBaseRequest>(
+                    reader.ReadToEnd(),
+                    new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                    ContractResolver = new ConverterContractResolver()});
+                //serverQuery.setType(query.Type);
+                //if(query.Components != null)serverQuery.addComponentList(query.Components);
+                //if(query.Querys != null)serverQuery.addQueryList(query.Querys);
             }catch(JsonSerializationException e)
             {
                 Console.WriteLine("#####################");
@@ -55,14 +64,14 @@ namespace ServiceTest
                 Console.WriteLine("#####################");
                 return "<h1>ERROR</h1><p>"+e.Message+"</p>";
             }
-            if(serverQuery.Type == RequestType.Empty || serverQuery.Components.Count <= 0)
+            if(serverQuery.Type == RequestType.Empty || serverQuery.Components == null)
             {
                 Console.WriteLine("##############################");
                 Console.WriteLine("[APP] Peticion vacia.");
                 Console.WriteLine("##############################");
                 return "<h1>ERROR</h1><p>La peticion esta vacia. Por favor envie una peticion con algo de informacion.</p>";
             }
-
+            //if(serverQuery.Components == null)
             Console.WriteLine("##########################");
             Console.WriteLine("[APP] Enviando Respuesta. OK");
             Console.WriteLine("##########################");
@@ -78,10 +87,14 @@ namespace ServiceTest
                 Console.WriteLine("##########################");
                 Console.WriteLine("[APP] Iniciando el Servidor.");
                 Console.WriteLine("##########################");
-                while (Running)
-                {
+                //while (Running)
+                //{
+                    Console.Write(".");
                     this.Server.Start();
-                }
+                //}
+                Console.ReadKey();
+                Console.ReadKey();
+                Console.ReadKey();
             }
             catch { }
             finally

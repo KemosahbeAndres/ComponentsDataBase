@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -35,18 +36,44 @@ namespace ServiceTest
 
         private void CallBack(Object listener)
         {
+            string file = @"./log";
+            string ext = @".txt";
+            int indice = 0;
+            while (true)
+            {
+                if (File.Exists(file+indice+ext))
+                {
+                    indice++;
+                }
+                else
+                {
+                    break;
+                }
+                    
+            }
+            StreamWriter writer = File.AppendText(file + indice + ext);
+            writer.WriteLine("Iniciando Hilo");
+            
             try
             {
                 while (this.server.IsListening || isAlive)
                 {
                     Console.WriteLine("[SERVER] Escuchando...");
+                    writer.WriteLine("[SERVER] Escuchando...");
                     //ThreadPool.QueueUserWorkItem((c) =>
                     //{
                     var serv = listener as HttpListener;
                     var context = serv.GetContext();
-                        try
+                    writer.WriteLine("[SERVER] Peticion recibida.");
+                    try
                         {
-                            if (context == null) return;
+                            if (context == null)
+                            {
+                                writer.WriteLine("[SERVER] Peticion NULA");
+                                Console.WriteLine("[SERVER] Peticion NULA.");
+                                return;
+                            }
+                            writer.WriteLine("[SERVER] Peticion corerecta");
                             Console.WriteLine("[SERVER] Peticion recibida.");
                             var response = this.OnRequest?.Invoke(context.Request);
                             var buffer = Encoding.UTF8.GetBytes(response);
@@ -56,7 +83,14 @@ namespace ServiceTest
                             Console.WriteLine("[SERVER] Respuesta enviada.");
                             Console.WriteLine("[SERVER][RESPUESTA] " + response);
                         }
-                        catch { }
+                        catch(Exception w) {
+                            writer.WriteLine("##########################");
+                            writer.WriteLine("[SERVER][ERROR][1] "+w.Message);
+                            writer.WriteLine("##########################");
+                            Console.WriteLine("##########################");
+                            Console.WriteLine("[SERVER][ERROR][1] " + w.Message);
+                            Console.WriteLine("##########################");
+                        }
                         finally
                         {
                             if (context != null) context.Response.OutputStream.Close();
@@ -64,13 +98,33 @@ namespace ServiceTest
                     //}, this.server.GetContext());
                 }
             }
-            catch { }
+            catch(Exception e) {
+                writer.WriteLine("##########################");
+                writer.WriteLine("[SERVER][ERROR][0] " + e.Message);
+                writer.WriteLine("##########################");
+                Console.WriteLine("##########################");
+                Console.WriteLine("[SERVER][ERROR][0]" + e.Message);
+                Console.WriteLine("##########################");
+            }
+            
+            writer.Close();
         }
 
         public void Start()
         {
             isAlive = true;
-            Task mTask = new Task(new Action<Object>(CallBack), server);
+            
+            try
+            {
+                //Task mTask = new Task(new Action<Object>(CallBack), server);
+                //mTask.Start();
+                CallBack(server);
+            }catch(Exception w)
+            {
+                Console.WriteLine("##########################");
+                Console.WriteLine("[SERVER][ERROR] "+w.Message);
+                Console.WriteLine("##########################");
+            }
             //ThreadPool.QueueUserWorkItem(new WaitCallback(CallBack), server);
             //CallBack();
         }

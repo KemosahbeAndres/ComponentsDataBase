@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Windows.Forms;
 using CDB;
 
@@ -18,7 +16,7 @@ namespace ComponentsViewer
             InitializeComponent();
             HttpClient = new HTTPClient();
             request = new DataBaseRequest();
-            request.setType(RequestType.Search);
+            request.setType(RequestType.Empty);
             
 
             mDataSource = new List<Componente>();
