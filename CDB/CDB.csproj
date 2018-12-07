@@ -45,12 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Capsula.cs" />
-    <Compile Include="DataBaseRequest.cs" />
     <Compile Include="Componente.cs" />
+    <Compile Include="FileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

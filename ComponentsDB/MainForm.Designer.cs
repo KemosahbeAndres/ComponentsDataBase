@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.sMainContainer = new System.Windows.Forms.SplitContainer();
             this.treeView = new System.Windows.Forms.TreeView();
             this.sContainer = new System.Windows.Forms.SplitContainer();
@@ -45,7 +46,7 @@
             this.toolBar = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.sMainContainer)).BeginInit();
             this.sMainContainer.Panel1.SuspendLayout();
             this.sMainContainer.Panel2.SuspendLayout();
@@ -97,7 +98,6 @@
             // 
             // sContainer.Panel2
             // 
-            this.sContainer.Panel2.Controls.Add(this.button1);
             this.sContainer.Panel2.Controls.Add(this.imgPanel);
             this.sContainer.Panel2.Controls.Add(this.label3);
             this.sContainer.Panel2.Controls.Add(this.label2);
@@ -203,7 +203,8 @@
             // 
             this.toolBar.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator1});
+            this.toolStripSeparator1,
+            this.btnAgregar});
             this.toolBar.Location = new System.Drawing.Point(0, 24);
             this.toolBar.Name = "toolBar";
             this.toolBar.Size = new System.Drawing.Size(742, 25);
@@ -223,15 +224,15 @@
             this.panel1.Size = new System.Drawing.Size(742, 358);
             this.panel1.TabIndex = 1;
             // 
-            // button1
+            // btnAgregar
             // 
-            this.button1.Location = new System.Drawing.Point(22, 277);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnAgregar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
+            this.btnAgregar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(53, 22);
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // MainForm
             // 
@@ -285,7 +286,7 @@
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel imgPanel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripButton btnAgregar;
     }
 }
 
