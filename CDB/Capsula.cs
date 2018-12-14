@@ -1,7 +1,5 @@
 ﻿namespace CDB
 {
-    
-    public enum packageSize { small, medium, big, adjust }
     public enum packageCategory { Diodes, Transistor, SingleRow, DualRow, QuadRow, Resistors, Void }
     public enum packageType
     {
@@ -22,23 +20,5 @@
         public enum QuadRow { QFN, QFP };
         public enum Resistors { SMD, AXIAL, MELF };
         public enum Generic { UNKNOW, GENERIC };
-    }
-
-    public class Capsula
-    {
-        public Capsula() : this(packageType.GENERIC, 0, packageSize.medium) { }
-        public Capsula(Capsula sample) : this(sample.Type, sample.Pins, sample.Size) { }
-        public Capsula(packageType type, int pins, packageSize size = packageSize.medium)
-        {
-            this.Type = type;
-            this.Pins = pins;
-            this.Size = size;
-        }
-
-        public packageSize Size { get; set; }
-        public packageType Type { get; set; }
-        public int Pins { get; set; }
-        
-
     }
 }

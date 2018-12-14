@@ -4,17 +4,39 @@ namespace CDB
 {
     public class Componente
     {
-        public string ID { get; set; }
-        public string codigo { get; set; }
-        public Capsula capsula { get; set; }
-        public int cantidad { get; set; }
-        public string categoria { get; set; }
-        public string subCategoria { get; set; }
-        public DateTime fecha { get; set; }
-        public string pinout { get; set; }
-        public string fabricante { get; set; }
-        public string altCodigo { get; set; }
-        public string datasheet { get; set; }
-        public string descripcion { get; set; }
+        public string Codigo { get; set; }
+        public string Descripcion { get; set; }
+        public int Cantidad { get; set; }
+        public string Categoria { get; set; }
+        public packageType Encapsulado
+        {
+            get
+            {
+                return (packageType)this.Capsula;
+            }
+            set
+            {
+                this.Capsula = (int)value;
+            }
+        }
+        public string Comentarios { get; set; }
+        public bool Imagen { get; set; }
+        public DateTime FechaIngreso { get; set; }
+        public string AltCodigo { get; set; }
+        public string Datasheet { get; set; }
+        //public string ID { get; set; }
+        private int Capsula;
+        public Componente()
+        {
+            this.Codigo = "";
+            this.Descripcion = "";
+            this.Cantidad = 0;
+            this.Categoria = "";
+            this.Encapsulado = packageType.UNKNOW;
+            this.Comentarios = "";
+            this.Imagen = false;
+            this.AltCodigo = "";
+            this.Datasheet = "";
+        }
     }
 }
